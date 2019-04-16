@@ -371,7 +371,7 @@ class BadgerAccordion {
                 header.setAttribute('aria-expanded', false);
 
                 // 5. Trigger callback
-                this.settings.onClose(panelToClose, header)
+                this.settings.onClose(panelToClose, header);
 
                 // 6. Resetting toggling so a new event can be fired
                 panelToClose.onCSSTransitionEnd(() => this.toggling = false );
@@ -391,7 +391,7 @@ class BadgerAccordion {
                 header.setAttribute('aria-expanded', true);
 
                 // 5. Trigger callback
-                this.settings.onOpen(panelToClose, header)
+                this.settings.onOpen(panelToOpen, header);
 
                 // 6. Resetting toggling so a new event can be fired
                 panelToOpen.onCSSTransitionEnd(() => this.toggling = false );

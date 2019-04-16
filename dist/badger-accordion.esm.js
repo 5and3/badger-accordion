@@ -206,15 +206,6 @@ if (!Array.from) {
 })(document, window, 0);
 
 /**
- *  ACCORDION
- *
- * A lightwight vanilla JS accordion with an exstensible API
- */
-// import uuid from 'uuid/v4';
-// const uuidV4 = uuid;
-
-/* eslint-disable no-unused-vars */
-/**
  * CONSTRUCTOR
  * Initializes the object
  */
@@ -255,7 +246,9 @@ function () {
       openHeadersOnLoad: [],
       headerOpenLabel: '',
       headerCloseLabel: '',
-      roles: true // toggleEl:            // If you want to use a different element to trigger the accordion
+      roles: true,
+      onOpen: function onOpen(panel, header) {},
+      onClose: function onClose(panel, header) {} // toggleEl:            // If you want to use a different element to trigger the accordion
 
     }; // Options
 
@@ -605,7 +598,9 @@ function () {
           panelToClose.classList.remove(this.settings.activeClass);
           header.classList.remove(this.settings.activeClass); // 4. Set aria attrs
 
-          header.setAttribute('aria-expanded', false); // 5. Resetting toggling so a new event can be fired
+          header.setAttribute('aria-expanded', false); // 5. Trigger callback
+
+          this.settings.onClose(panelToClose, header); // 6. Resetting toggling so a new event can be fired
 
           panelToClose.onCSSTransitionEnd(function () {
             return _this8.toggling = false;
@@ -622,8 +617,10 @@ function () {
           _header.classList.add(this.settings.activeClass); // 4. Set aria attrs
 
 
-          _header.setAttribute('aria-expanded', true); // 5. Resetting toggling so a new event can be fired
+          _header.setAttribute('aria-expanded', true); // 5. Trigger callback
 
+
+          this.settings.onOpen(panelToOpen, _header); // 6. Resetting toggling so a new event can be fired
 
           panelToOpen.onCSSTransitionEnd(function () {
             return _this8.toggling = false;
@@ -798,4 +795,3 @@ function () {
 }(); // Export
 
 export default BadgerAccordion;
-//# sourceMappingURL=badger-accordion.esm.js.map
